@@ -1,23 +1,20 @@
-FROM golang:1.15.2-alpine as builder
+FROM golang:alpine as builder
 
-ENV GOROOT /usr/local/go
-ENV GOPATH /go
-ENV PATH $PATH:$GOROOT/bin:$GOPATH/bin
-ENV GOPROXY https://goproxy.cn,direct
-ENV GO111MODULE on
+WORKDIR /service
+COPY . .
+RUN CGO_ENABLED=0 go build -a -installsuffix cgo -o main main.go
 
-RUN mkdir -p /doctron
-COPY . /doctron
+FROM alpine:latest
 
-RUN cd /doctron && \
-    go build && \
-    cp -fr doctron /usr/local/bin && \
-    chmod +x /usr/local/bin/doctron
+RUN apk add chromium
 
-FROM lampnick/runtime:chromium-alpine
 
-MAINTAINER lampnick <nick@lampnick.com>
-COPY --from=builder  /usr/local/bin/doctron /usr/local/bin/doctron
-COPY conf/default.yaml /doctron.yaml
+WORKDIR /root/
+COPY --from=builder /service/main .
+COPY --from=builder /service/conf/default.yaml /root/doctron.yaml
+
+# Expose port 8080 to the outside world
 EXPOSE 8080
-CMD ["dumb-init", "doctron", "--config", "/doctron.yaml"]
+
+#Command to run the executable
+CMD ["./main", "--config", "/root/configs/doctron/doctron.yaml"]

@@ -1,48 +1,15 @@
-### [English](README.md) | [中文](README_ZH.md)
-
-### Table of Contents
-
-- [Doctron description](#doctron-description)
-- [Online experience](#online-experience)
-- [Convert preview](#convert-preview)
-- [Encourage](#encourage)
-- [Features](#features)
-- [Installing](#installing)
-- [Quick Start](#quick-start)
-  - [Html convert to pdf](#html-convert-to-pdf)
-        - [basic](#basic)
-        - [custom size](#custom-size)
-        - [support params](#support-params)
-  - [Html convert to image](#html-convert-to-image)
-        - [basic](#basic-1)
-        - [custom size](#custom-size-1)
-        - [support params](#support-params-1)
-  - [Pdf add watermark](#pdf-add-watermark)
-        - [add image watermark](#add-image-watermark)
-        - [support params](#support-params-2)
-  - [Pdf convert to image](#pdf-convert-to-image)
-        - [coming soon](#coming-soon)
-- [Doctron Client](#doctron-client)
-  - [Doctron go client](#doctron-go-client)
-        - [doctron-client-go](#doctron-client-go)
-  - [Doctron php client](#doctron-php-client)
-        - [doctron-client-php](#doctron-client-php)
-- [License](#license)
-- [Thanks JetBrains provide free GoLand IDE](#thanks-jetbrains-provide-free-goland-ide)
-## Doctron description
+# Doctron description
 Doctron is a Docker-powered,serverless,sample,fast,high quality document convert tool.Supply html convert to pdf(html2pdf), html convert to image(html2image like jpeg,png),which using chrome(Chromium) kernel, add watermarks to pdf, convert pdf to images etc.
 
-## Online experience
-open the following website to have a try. Conversion may be slower due to low server configuration.
-[Doctron Live Demo](http://doctron.mitnick.fun)
+## Steps to Deploy
 
-## Convert preview
-- source website: https://support.apple.com/zh-cn/iphone-12-and-iphone-12-pro-service-program-for-no-sound-issues
-- preview:
-- ![avatar](test_data/preview.png)
+```
+gcloud auth configure-docker asia-south1-docker.pkg.dev
+docker build --platform linux/amd64 -t asia-south1-docker.pkg.dev/grexa-prod/doctron/doctron:latest .
+docker -- push asia-south1-docker.pkg.dev/grexa-prod/doctron/doctron:latest
+```
 
-## Encourage
-If you feel doctron is not bad, give me a star and fork.Star and fork is my greatest encouragement！
+
 
 ## Features
 - Html convert to pdf/image using chrome kernel to guarantee what you see is what you get.
@@ -152,19 +119,9 @@ http://127.0.0.1:8080/convert/pdfAddWatermark?u=doctron&p=lampnick&url=<pdf url>
 - url // need convert html url
 - imageUrl // watermark image url,support png/jpeg
 
-### Pdf convert to image
-###### coming soon
-
 ## Doctron Client
 ### Doctron go client
 ###### [doctron-client-go](https://github.com/lampnick/doctron-client-go)
 
 ### Doctron php client
 ###### [doctron-client-php](https://github.com/lampnick/doctron-client-php)
-
-## License
-
-Doctron is released under the Apache 2.0 license. See [LICENSE.txt](https://github.com/lampnick/doctron/blob/master/LICENSE)
-
-## [Thanks JetBrains provide free GoLand IDE](https://jb.gg/OpenSource)
-[![avatar](jetbrains.svg)](https://jb.gg/OpenSource)
